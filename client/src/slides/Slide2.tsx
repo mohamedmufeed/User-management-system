@@ -1,4 +1,3 @@
-import Stars from "../assets/DOTS 1.png";
 import Circle from "../components/user/Circle";
 import BlurBox from "../components/user/BlurBox";
 import GoPro from "../assets/6dbdffc1e0d3e74061a59667317559ad 2.png"
@@ -44,11 +43,6 @@ const Slide2 = () => {
 
     return (
         <div>
-            <img
-                src={Stars}
-                alt="Stars Img"
-                className="absolute top-0 left-0 w-full h-full object-cover z-0 scale-150 transition-all"
-            />
             {/* Black Circles */}
             <Circle
                 initial={{ top: "-5rem", left: "-4rem" }}
@@ -64,7 +58,7 @@ const Slide2 = () => {
             <BlurBox animateTo={{ top: "12rem" }} className=" -top-20 left-1/2  md:left-1/6 " />
 
             {/* Content */}
-            <div className="flex flex-col md:flex-col relative justify-center items-center z-20 p-6 md:p-13.5 gap-3 sm:gap-0">
+            <div className="flex flex-col md:flex-col relative justify-center items-center z-20 p-6 md:p-13.5 gap-2 sm:gap-0">
 
                 <div ref={(el) => {
                     if (el) textRefs.current.push(el);
@@ -72,10 +66,10 @@ const Slide2 = () => {
                     <SlideText
                         title="Final Title"
                         subtitle="Third block with bottom alignment."
-                        className="text-center max-w-md"
+                        className=" text-center max-w-md"
                     />
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-10  relative">
+                <div className="flex flex-col md:flex-row items-center gap-5  relative">
 
                     {/* Left Text */}
                     <div ref={(el) => {
@@ -92,7 +86,7 @@ const Slide2 = () => {
 
 
                     <div className="flex flex-col justify-center items-center">
-                        <img ref={imageRef} src={GoPro} alt="GoPro" className="w-[300px] md:w-[400px]" />
+                        <img ref={imageRef} src={GoPro} alt="GoPro" className="w-[250px]  sm:w-[300px] md:w-[400px]" />
                         <div className="flex justify-center ">
                             <button ref={buttonRef} className=" bg-[#0F2017] px-7 py-2 text-xs sm:text-base  rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70 ">
                                 Discover More Features
