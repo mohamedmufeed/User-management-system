@@ -5,7 +5,8 @@ import Slide2 from "../../slides/Slide2";
 import gsap from "gsap";
 import Stars from "../../assets/DOTS 1.png";
 import Slide3 from "../../slides/Slide3";
-const slides = [ Slide1, Slide2 , Slide3 ]
+import Slide4 from "../../slides/Slide4";
+const slides = [ Slide1, Slide2 , Slide3 ,Slide4 ]
 
 const Home = () => {
     const [activeSlide, setActiveSlide] = useState(0);
@@ -18,7 +19,7 @@ const Home = () => {
             gsap.to(starRef.current, {
                 x: activeSlide * -100,
                 y: activeSlide * 50,
-                scale: 1 + activeSlide * 0.5,
+                scale: 1 + activeSlide * 0.3,
                 duration: 1,
                 ease: "power2.Out"
             })
@@ -33,7 +34,7 @@ const Home = () => {
                 ref={starRef}
                 src={Stars}
                 alt="Stars Img"
-                className="absolute top-0 left-0 w-full h-full object-cover z-0 scale-100"
+                className="absolute top-0 left-0 w-full h-full object-cover z-0 "
             />
 
             {/* Navbar */}

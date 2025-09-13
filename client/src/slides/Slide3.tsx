@@ -37,7 +37,7 @@ const Slide3 = () => {
             {/* Content */}
             <div className="flex flex-col md:flex-row w-full justify-center items-center md:items-center gap-3 px-6 md:px-16 md:py-18 z-20 relative ">
                 {/* Left Image & Button */}
-                <div ref={leftImageRef} className="flex flex-col justify-center items-center md:w-1/2 gap-2 sm:gap-6">
+                <div ref={leftImageRef} className="flex flex-col justify-center items-center md:w-1/2 gap-5 sm:gap-6">
                     <img
                         src={GoPro}
                         alt="GoPro"
@@ -52,19 +52,19 @@ const Slide3 = () => {
                 <div className="flex flex-col justify-start items-start md:w-1/2 gap-3 sm:gap-15">
                     <SlideText
                         initial={{ x: -100, y: -100 }}
-                        animateTo={{ x: 6, y: 20 }}
+                        animateTo={{ x: 0, y: 0}}
                         title="Waterproof & Rugged"
                         subtitle="Take your GoPro anywhere — rain, snow, surf, or dust, HERO12 can handle it all."
                     />
                     <SlideText
                         initial={{ x: -500, y: -50 }}
-                        animateTo={{ x: 6, y: 15 }}
+                        animateTo={{ x: 0, y: 0 }}
                         title="Stabilized 4K Video"
                         subtitle="Shoot ultra-smooth 4K footage anywhere, with HyperSmooth stabilization technology."
                     />
                     <SlideText
                         initial={{ x: 90, y: -35 }}
-                        animateTo={{ x: 6, y: 10 }}
+                        animateTo={{ x: 0, y: 0 }}
                         title="Long-lasting Battery"
                         subtitle="Capture more adventure with an extended battery life and fast charging."
                     />
