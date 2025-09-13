@@ -45,17 +45,17 @@ const Slide2 = () => {
         <div>
             {/* Black Circles */}
             <Circle
-                initial={{ top: "-5rem", left: "-4rem" }}
-                animateTo={{ top: "14rem", left: "-12rem" }}
+                initial={{ top: "-8%", left: "-7%" }}
+                animateTo={{ top: "30%", left: "-14%" }}
                 className="w-[14rem] h-[14rem] md:w-[20rem] md:h-[20rem] lg:w-[26rem] lg:h-[26rem]" />
 
             <Circle
-                initial={{ top: "-10rem", right: "2rem" }}
-                animateTo={{ top: "3rem", right: "-5rem" }}
+                initial={{top:"-10%" , right:"15%"}}
+                animateTo={{ top: "1%", right: "-5%" }}
                 className=" w-[6rem] h-[6rem]  md:w-[10rem] md:h-[10rem]   lg:w-[14rem] lg:h-[14rem] "
             />
             {/* Green Blur */}
-            <BlurBox animateTo={{ top: "12rem" }} className=" -top-20 left-1/2  md:left-1/6 " />
+            <BlurBox animateTo={{ top: "18%" }} className=" -top-20 left-1/2  md:left-1/6 " />
 
             {/* Content */}
             <div className="flex flex-col md:flex-col relative justify-center items-center z-20 p-6 md:p-13.5 gap-2 sm:gap-0">
@@ -64,8 +64,8 @@ const Slide2 = () => {
                     if (el) textRefs.current.push(el);
                 }} className="">
                     <SlideText
-                        title="Final Title"
-                        subtitle="Third block with bottom alignment."
+                        title="Waterproof up to 33ft (10m)"
+                        subtitle="Shoot underwater without a housing"
                         className=" text-center max-w-md"
                     />
                 </div>
@@ -78,8 +78,8 @@ const Slide2 = () => {
 
                         <SlideText
                             className=" relative text-center max-w-sm md:-top-28"
-                            title="Hello World"
-                            subtitle="This is a reusable subtitle text block."
+                            title="Shock-resistant design"
+                            subtitle="Withstands drops, bumps, and rough handling"
                         />
                     </div>
 
@@ -101,8 +101,8 @@ const Slide2 = () => {
 
                         <SlideText
                             className="relative text-center max-w-sm md:top-15"
-                            title="Another Title"
-                            subtitle="Second block of text aligned differently."
+                            title="Durable construction"
+                            subtitle="Built with impact-resistant materials for outdoor adventures."
                         />
                     </div>
 

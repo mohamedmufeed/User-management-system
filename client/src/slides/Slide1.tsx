@@ -10,16 +10,17 @@ const Slide1 = () => {
             {/* Black Circles */}
 
             <Circle
-                initial={{ top: "-5rem", left: "-4rem" }}
+                initial={{ top: "-8%", left: "-7%" }}
                 className="w-[14rem] h-[14rem] md:w-[20rem] md:h-[20rem] lg:w-[26rem] lg:h-[26rem]" />
 
             <Circle
-                className=" right-10 md:right-20 lg:right-60  -top-15  md:-top-23 lg:-top-35  w-[6rem] h-[6rem]  md:w-[10rem] md:h-[10rem] lg:w-[14rem] lg:h-[14rem]"/>
+            initial={{top:"-10%" , right:"15%"}}
+                className="   w-[6rem] h-[6rem]  md:w-[10rem] md:h-[10rem] lg:w-[14rem] lg:h-[14rem]"/>
             {/* Green Blur */}
             <BlurBox className=" -top-20 left-1/2    md:left-1/6 "/>
             
             {/* Content */}
-            <div className="flex flex-col md:flex-row relative justify-center items-center z-20 p-3 md:p-24">
+            <div className="flex flex-col md:flex-row relative justify-center items-center z-20 p-3 md:p-24 py-0 md:py-26">
                 <div className="w-full md:w-4/6 flex flex-col justify-center items-center md:items-start space-y-2 md:space-y-10 text-center md:text-left">
                     <h1 className="font-semibold text-3xl sm:text-4xl md:text-7xl leading-snug md:leading-[5rem]">
                         Capture Every Moment <br /> with GoPro Hero

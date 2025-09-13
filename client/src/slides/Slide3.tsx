@@ -1,29 +1,77 @@
-import BlurBox from "../components/user/BlurBox"
-import Circle from "../components/user/Circle"
+import BlurBox from "../components/user/BlurBox";
+import Circle from "../components/user/Circle";
+import GoPro from "../assets/6dbdffc1e0d3e74061a59667317559ad 2.png";
+import SlideText from "../components/user/SlideText";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const Slide3 = () => {
+    const leftImageRef = useRef<HTMLDivElement | null>(null)
+    useEffect(() => {
+        gsap.fromTo(leftImageRef.current,
+            { x: 388, opacity: 1 },
+            { x: 0 })
+    }, [])
     return (
-        <div>
+        <div className="">
             {/* Black Circles */}
             <Circle
-                initial={{ top: "14rem", left: "-12rem" }}
-                animateTo={{ top: "39rem", left: "-7rem" }}
-                className="w-[14rem] h-[14rem] md:w-[20rem] md:h-[20rem] lg:w-[26rem] lg:h-[26rem]" />
+                initial={{ top: "30%", left: "-14%" }}
+                animateTo={{ top: "73%", left: "-7%" }}
+                className="w-[14rem] h-[14rem] md:w-[20rem] md:h-[20rem] lg:w-[26rem] lg:h-[26rem] bg-black"
+            />
 
             <Circle
-                initial={{ top: "3rem", right: "-5rem" }}
-                animateTo={{ top: "-7rem", right: "13rem" }}
-                className=" w-[6rem] h-[6rem]  md:w-[10rem] md:h-[10rem]   lg:w-[14rem] lg:h-[14rem] "
+                initial={{ top: "1%", right: "-5%" }}
+                animateTo={{ top: "-10%", right: "15%" }}
+                className="w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem] lg:w-[14rem] lg:h-[14rem] bg-black"
             />
+
             {/* Green Blur */}
             <BlurBox
-                initial={{ top: "12rem", left: "12rem" }}
-                animateTo={{ top: "25rem", left: "50rem" }}
-                className="  w-full  -top-20 left-1/2  md:left-1/6"
+                initial={{ top: "18%", left: "12%" }}
+                animateTo={{ top: "25%", left: "50%" }}
+                className="w-full -top-20 left-1/2 md:left-1/6"
             />
 
-        </div>
-    )
-}
+            {/* Content */}
+            <div className="flex flex-col md:flex-row w-full justify-center items-center md:items-center gap-3 px-6 md:px-16 md:py-18 z-20 relative ">
+                {/* Left Image & Button */}
+                <div ref={leftImageRef} className="flex flex-col justify-center items-center md:w-1/2 gap-2 sm:gap-6">
+                    <img
+                        src={GoPro}
+                        alt="GoPro"
+                        className="w-[250px] sm:w-[300px] md:w-[400px]"
+                    />
+                    <button className="bg-[#0F2017] px-7 py-2 text-xs sm:text-base rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70">
+                        Discover More Features
+                    </button>
+                </div>
 
-export default Slide3
+                {/* Right  Texts */}
+                <div className="flex flex-col justify-start items-start md:w-1/2 gap-3 sm:gap-15">
+                    <SlideText
+                        initial={{ x: -100, y: -100 }}
+                        animateTo={{ x: 6, y: 20 }}
+                        title="Waterproof & Rugged"
+                        subtitle="Take your GoPro anywhere — rain, snow, surf, or dust, HERO12 can handle it all."
+                    />
+                    <SlideText
+                        initial={{ x: -500, y: -50 }}
+                        animateTo={{ x: 6, y: 15 }}
+                        title="Stabilized 4K Video"
+                        subtitle="Shoot ultra-smooth 4K footage anywhere, with HyperSmooth stabilization technology."
+                    />
+                    <SlideText
+                        initial={{ x: 90, y: -35 }}
+                        animateTo={{ x: 6, y: 10 }}
+                        title="Long-lasting Battery"
+                        subtitle="Capture more adventure with an extended battery life and fast charging."
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Slide3;
