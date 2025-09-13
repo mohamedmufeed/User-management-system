@@ -6,7 +6,6 @@ import Navbar from "../../components/user/ui/Navbar";
 const Profile = () => {
   return (
     <div className="bg-[#0F0F0F] text-white h-screen w-full relative overflow-hidden">
-      {/* Background Stars */}
       <img
         src={Stars}
         alt="Stars Img"
