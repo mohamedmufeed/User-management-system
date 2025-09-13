@@ -1,7 +1,7 @@
-import BlurBox from "../components/user/BlurBox";
-import Circle from "../components/user/Circle";
+import BlurBox from "../components/user/ui/BlurBox";
+import Circle from "../components/user/ui/Circle";
 import GoPro from "../assets/6dbdffc1e0d3e74061a59667317559ad 2.png";
-import SlideText from "../components/user/SlideText";
+import SlideText from "../components/user/ui/SlideText";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 

@@ -21,7 +21,7 @@ const BlurBox: React.FC<Props> = ({ className = "", initial = {}, animateTo, dur
 
     }, [animateTo, duration])
     return (
-        <div ref={blurRef} className={`absolute transform -translate-x-1/2  w-[15rem] h-[50%] md:w-[23rem] md:h-[70%] lg:w-[28rem] lg:h-[80%] -rotate-45 rounded-full bg-radial from-green-700/40 to-green-700/40 blur-3xl opacity-50 z-5 ${className}`} style={initial}></div>
+        <div ref={blurRef} className={`absolute transform -translate-x-1/2  w-[20rem] h-[50%] md:w-[33rem] md:h-[75%] lg:w-[28rem] lg:h-[80%] -rotate-45 rounded-full bg-radial from-green-700/30 to-green-700/30 blur-3xl opacity-50 z-5 ${className}`} style={initial}></div>
     )
 }
 

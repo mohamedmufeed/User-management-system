@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
-import BlurBox from "../components/user/BlurBox"
-import Circle from "../components/user/Circle"
-import SlideText from "../components/user/SlideText"
+import BlurBox from "../components/user/ui/BlurBox"
+import Circle from "../components/user/ui/Circle"
+import SlideText from "../components/user/ui/SlideText"
 import gsap from "gsap"
 const Slide4 = () => {
     const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -43,7 +43,7 @@ const Slide4 = () => {
             />
 
             {/* Content */}
-            <div className="flex flex-col justify-center items-center gap-15 sm:gap-40 text-center p-20">
+            <div className="flex flex-col justify-center items-center gap-15 sm:gap-39 text-center p-20">
 
 
                 <SlideText
@@ -58,7 +58,7 @@ const Slide4 = () => {
                 </button>
 
 
-                <div className="flex flex-col sm:flex-row gap-8 sm:gap-96 justify-center items-center py-2 ">
+                <div className="flex flex-col sm:flex-row gap-8 sm:gap-96 justify-center items-center ">
                     <SlideText
                         initial={{ x: 500, y: -120 }}
                         animateTo={{ x: 0, y: 0 }}

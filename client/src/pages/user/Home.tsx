@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import Navbar from "../../components/user/Navbar";
+import Navbar from "../../components/user/ui/Navbar";
 import Slide1 from "../../slides/Slide1"
 import Slide2 from "../../slides/Slide2";
 import gsap from "gsap";
 import Stars from "../../assets/DOTS 1.png";
 import Slide3 from "../../slides/Slide3";
 import Slide4 from "../../slides/Slide4";
-const slides = [ Slide1, Slide2 , Slide3 ,Slide4 ]
+const slides = [Slide1, Slide2, Slide3, Slide4]
 
 const Home = () => {
     const [activeSlide, setActiveSlide] = useState(0);
@@ -53,11 +53,12 @@ const Home = () => {
                         key={i}
                         onClick={() => setActiveSlide(i)}
                         className={`
+                            cursor-pointer
                             flex-1 p-2  sm:p-5 text-center 
                             bg-black text-gray-200 opacity-60
                             ${i !== 3 ? "border-r-4 border-gray-800" : ""}
                             ${activeSlide === i
-                                ? "bg-gray-950/80 text-white"
+                                ? "bg-gray-400/55 text-white"
                                 : "bg-black text-gray-300 opacity-60 hover:opacity-100"
                             }
                         `}

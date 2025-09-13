@@ -1,7 +1,7 @@
-import Circle from "../components/user/Circle";
-import BlurBox from "../components/user/BlurBox";
+import Circle from "../components/user/ui/Circle";
+import BlurBox from "../components/user/ui/BlurBox";
 import GoPro from "../assets/6dbdffc1e0d3e74061a59667317559ad 2.png"
-import SlideText from "../components/user/SlideText";
+import SlideText from "../components/user/ui/SlideText";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 const Slide2 = () => {
@@ -86,7 +86,7 @@ const Slide2 = () => {
 
 
                     <div className="flex flex-col justify-center items-center">
-                        <img ref={imageRef} src={GoPro} alt="GoPro" className="w-[250px]  sm:w-[300px] md:w-[400px]" />
+                        <img ref={imageRef} src={GoPro} alt="GoPro" className="w-[250px]  sm:w-[300px] md:w-[400px] " />
                         <div className="flex justify-center ">
                             <button ref={buttonRef} className=" bg-[#0F2017] px-7 py-2 text-xs sm:text-base  rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70 ">
                                 Discover More Features

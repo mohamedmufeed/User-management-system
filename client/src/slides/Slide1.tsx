@@ -1,8 +1,8 @@
 
 import GoPro from "../assets/6dbdffc1e0d3e74061a59667317559ad 2.png"
-import BlurBox from "../components/user/BlurBox";
+import BlurBox from "../components/user/ui/BlurBox";
 
-import Circle from "../components/user/Circle";
+import Circle from "../components/user/ui/Circle";
 const Slide1 = () => {
     return (
         <div>
