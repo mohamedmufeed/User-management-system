@@ -1,25 +1,35 @@
 import { lazy } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import ProtectedRoute from "./ProtectedRoute"
 // User Routes
 const Home = lazy(() => import("../pages/user/Home"))
 const Login = lazy(() => import("../pages/user/Login"))
 const Profile = lazy(() => import('../pages/user/Profile'))
 
 // Admin Routes
-const Dashboard = lazy(()=>import('../pages/admin/Dashboard'))
+const Dashboard = lazy(() => import('../pages/admin/Dashboard'))
 
 const Approutes = () => {
   return (
     <Router>
       <Routes>
 
-        {/* User routes */}
+        {/* Public routes */}
+
+
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+
+        {/* User protected routes */}
+
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
 
         {/* Admin routes */}
-        <Route path="/admin-dashboard" element={<Dashboard/>} />
+        <Route path="/admin-dashboard" element={<Dashboard />} />
 
 
       </Routes>
