@@ -39,20 +39,22 @@ export class AuthService implements IAuthService {
         const userDto = toUserDto(user)
         return { user: userDto, token, refreshToken }
     }
-    refreshToken = async (refreshToken: string): Promise<unknown> => {
+
+    refreshToken = async (refreshToken: string): Promise<string> => {
+
         if (!refreshToken) {
-            throw new Error("No refresh token found ");
+            throw new Error("No refresh token found");
         }
-        return new Promise((resolve, reject) => {
-            jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET as string,
-                (err, decoded: any) => {
-                    if (err) {
-                        reject(new Error("Invalid Token"));
-                        return;
-                    }
-                    const newAcessToken = generateToken(decoded.id, decoded.isAdmin);
-                    resolve(newAcessToken);
-                })
-        })
-    }
+        try {
+            const decoded = jwt.verify( refreshToken,process.env.REFRESH_JWT_SECRET as string) as { id: string; isAdmin: boolean };
+            const newAccessToken = generateToken(decoded.id, decoded.isAdmin);
+            console.log("New access token:", newAccessToken);
+
+            return newAccessToken;
+        } catch (err: any) {
+            console.error("Refresh token verify failed:", err.message);
+            throw new Error("Invalid or expired refresh token");
+        }
+    };
+
 }

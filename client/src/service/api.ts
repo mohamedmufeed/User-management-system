@@ -1,38 +1,39 @@
 import axios from "axios";
+
 const isProduction = window.location.hostname !== "localhost";
 const api = axios.create({
     baseURL: isProduction ? "" : "http://localhost:3000/api/",
-    withCredentials: true,
+    withCredentials: true, 
 });
 
 api.interceptors.response.use(
-    (response) => response,
+    response => response,
     async (error) => {
-        console.error("Interceptor Error Triggered:", error)
         const originalRequest = error.config;
-        if (error.response.status === 403) {
-            console.warn("User Blocked")
-            localStorage.clear()
-            sessionStorage.clear()
-            window.location.href = "/login"
-            return Promise.reject(error)
-        }
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true
-            try {
-                const response = await api.post("user/refresh")
 
-                console.log("Refresh response:", response)
-                // const newAccessToken = response.data.accessToken;
-                // api.defaults.headers.common["Authorization"] =
-                //     `Bearer ${newAccessToken}`;
-                return api(originalRequest);
-            } catch (Refresherror) {
-                console.error("Refresh token failed:", Refresherror);
+        if (error.response?.status === 403) {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "/login";
+            return Promise.reject(error);
+        }
+
+        if (error.response?.status === 401 && !originalRequest._retry && !originalRequest.url.includes("/user/refresh")) {
+            originalRequest._retry = true;
+            try {
+                await api.post("/user/refresh");
+                return api(originalRequest);   
+            } catch (refreshError) {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = "/login";
+                return Promise.reject(refreshError);
             }
         }
+
         return Promise.reject(error);
     }
-)
+);
 
-export default api
+
+export default api;

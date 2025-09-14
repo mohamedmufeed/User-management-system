@@ -21,13 +21,13 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", token, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User created successfully" })
@@ -48,59 +48,70 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", token, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User Login successfully" })
         } catch (error) {
             const err = error as Error
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({   success: false, message: err?.message || "Internal server error" });
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: err?.message || "Internal server error" });
         }
     }
 
     logout = async (req: Request, res: Response): Promise<void> => {
         try {
-          
+
             res.cookie("access_token", " ", {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 expires: new Date(0),
             });
 
             res.cookie("refresh_token", " ", {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 expires: new Date(0),
             });
 
             res.status(HttpStatus.OK).json({ success: true, message: "Logged out successfully" });
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({   success: false, message: "Logout failed", error: error });
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: "Logout failed", error: error });
         }
     };
     refreshToken = async (req: Request, res: Response): Promise<void> => {
         try {
             const refreshToken = req.cookies?.refresh_token;
+
+            if (!refreshToken) {
+                res.status(HttpStatus.UNAUTHORIZED).json({ message: "No refresh token provided" });
+                return;
+            }
+
             const newToken = await this._authService.refreshToken(refreshToken);
-console.log(newToken)
+
             res.cookie("access_token", newToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "lax",
+                sameSite: "strict",
                 maxAge: accessTokenMaxAge,
             });
+
             res.status(HttpStatus.OK).json({ accessToken: newToken });
         } catch (error) {
-            const err = error as Error
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({    success: false,message: err?.message || "Internal server error" });
+            const err = error as Error;
+            res.status(HttpStatus.UNAUTHORIZED).json({
+                success: false,
+                message: err?.message || "Invalid or expired refresh token",
+            });
         }
-    }
+    };
+
 }
