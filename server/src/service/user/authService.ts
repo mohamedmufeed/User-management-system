@@ -1,10 +1,11 @@
 import IAuthService from "../../interface/service/user/authSeriviceInterface";
-import { IUser, IUserDTO } from "../../types/userTypes";
+import { IUserDTO } from "../../types/userTypes";
 import HttpStatus from "../../utils/httpStatusCode";
 import bcrypt from "bcrypt"
 import { generateToken } from "../../utils/jwt";
 import { toUserDto } from "../../utils/dto/userDto";
 import IUserRespository from "../../interface/repositories/userRespositoryInterface";
+import jwt from "jsonwebtoken"
 
 export class AuthService implements IAuthService {
     constructor(private _userRepository: IUserRespository) { }
@@ -37,5 +38,21 @@ export class AuthService implements IAuthService {
         const refreshToken = generateToken(user.id, user.isAdmin)
         const userDto = toUserDto(user)
         return { user: userDto, token, refreshToken }
+    }
+    refreshToken = async (refreshToken: string): Promise<unknown> => {
+        if (!refreshToken) {
+            throw new Error("No refresh token found ");
+        }
+        return new Promise((resolve, reject) => {
+            jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET as string,
+                (err, decoded: any) => {
+                    if (err) {
+                        reject(new Error("Invalid Token"));
+                        return;
+                    }
+                    const newAcessToken = generateToken(decoded.id, decoded.isAdmin);
+                    resolve(newAcessToken);
+                })
+        })
     }
 }

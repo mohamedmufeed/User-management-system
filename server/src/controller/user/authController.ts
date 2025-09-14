@@ -30,10 +30,10 @@ export class AuthController implements IAuthController {
                 sameSite: "strict",
                 maxAge: refreshTokenMaxAge,
             });
-            res.status(HttpStatus.OK).json({ user, message: "User created successfully" })
+            res.status(HttpStatus.OK).json({ user, success: true, message: "User created successfully" })
         } catch (error) {
             const err = error as Error
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: err?.message || "Internal server error" });
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: err?.message || "Internal server error" });
         }
     }
     login = async (req: Request, res: Response): Promise<void> => {
@@ -57,10 +57,10 @@ export class AuthController implements IAuthController {
                 sameSite: "strict",
                 maxAge: refreshTokenMaxAge,
             });
-            res.status(HttpStatus.OK).json({ user, message: "User Login successfully" })
+            res.status(HttpStatus.OK).json({ user, success: true, message: "User Login successfully" })
         } catch (error) {
             const err = error as Error
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: err?.message || "Internal server error" });
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({   success: false, message: err?.message || "Internal server error" });
         }
     }
 
@@ -86,9 +86,26 @@ export class AuthController implements IAuthController {
                 expires: new Date(0),
             });
 
-            res.status(HttpStatus.OK).json({ message: "Logged out successfully" });
+            res.status(HttpStatus.OK).json({ success: true, message: "Logged out successfully" });
         } catch (error) {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Logout failed", error: error });
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({   success: false, message: "Logout failed", error: error });
         }
     };
+    refreshToken = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const refreshToken = req.cookies?.refresh_token;
+            const newToken = await this._authService.refreshToken(refreshToken);
+
+            res.cookie("access_token", newToken, {
+                httpOnly: true,
+                secure: false,
+                sameSite: "strict",
+                maxAge: accessTokenMaxAge,
+            });
+            res.status(HttpStatus.OK).json({ accessToken: newToken });
+        } catch (error) {
+            const err = error as Error
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({    success: false,message: err?.message || "Internal server error" });
+        }
+    }
 }

@@ -18,5 +18,8 @@ router.
 router.
     route("/auth/logout/:id")
     .post(authController.logout)
+router
+    .route("/refresh")
+    .post(authController.refreshToken);
 
 export default router

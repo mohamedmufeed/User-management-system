@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Stars from "../../assets/DOTS 1.png";
-import LoginFrom from "../../components/LoginFrom";
+import LoginFrom from "../../components/user/LoginFrom";
 import SignupFrom from "../../components/user/SignupFrom";
 import BlurBox from "../../components/user/ui/BlurBox";
 import Circle from "../../components/user/ui/Circle";
