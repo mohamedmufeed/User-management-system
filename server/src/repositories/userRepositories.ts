@@ -17,4 +17,7 @@ export class UserRepository extends BaseRepository<IUser> implements IUserRespos
     async findByPhone(phone: string): Promise<HydratedDocument<IUser> | null> {
         return this.model.findOne({ phone });
     }
+    async findByIdAndUpdate(id: string, password: string): Promise<HydratedDocument<IUser> | null> {
+        return super.update(id, { password: password })
+    }
 }

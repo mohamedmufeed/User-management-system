@@ -14,10 +14,25 @@ export const signupSchema = z.object({
 });
 export type SignupFormData = z.infer<typeof signupSchema>;
 
-
 export const loginSchema = z.object({
   countryCode: z.string().min(1, "Code required"),
   phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 })
 export type LoginFormData = z.infer<typeof loginSchema>;
+
+export const forgotPasswordSchema = z
+  .object({
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    newPassword: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords must match",
+  })
+  .refine((data) => data.password !== data.newPassword, {
+    path: ["newPassword"],
+    message: "New password must be different from old password",
+  });
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;

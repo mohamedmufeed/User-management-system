@@ -25,10 +25,10 @@ export class AuthService implements IAuthService {
     login = async (phone: string, password: string): Promise<{ user: IUserDTO; token: string; refreshToken: string; }> => {
         const user = await this._userRepository.findByPhone(phone)
         if (!user) {
-            throw { status: HttpStatus.BAD_REQUEST, message: "User not found" }
+            throw { status: HttpStatus.NOT_FOUND, message: "User not found" }
         }
         if (user.isBlocked) {
-            throw { status: HttpStatus.NOT_FOUND, message: "User is Blocked" }
+            throw { status: HttpStatus.BAD_REQUEST, message: "User is Blocked" }
         }
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) {

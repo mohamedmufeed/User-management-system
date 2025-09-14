@@ -8,6 +8,7 @@ import Slide3 from "../../slides/Slide3";
 import Slide4 from "../../slides/Slide4";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store/store";
+import { useNavigate } from "react-router-dom";
 
 const slides = [Slide1, Slide2, Slide3, Slide4]
 
@@ -16,8 +17,15 @@ const Home = () => {
     const items = ["Ultra HD 5K Video", "Waterproof & Rugged", "Stabilization 3.0", "Instant Sharing"]
     const ActiveSlide = slides[activeSlide]
     const starRef = useRef(null)
-    const user=useSelector((state:RootState)=>state.auth)
-    console.log(user)
+    const user = useSelector((state: RootState) => state.auth)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (user._id && user.isAdmin) {
+            navigate("/admin-dashboard")
+        }else if( user.firstName){
+            navigate("/")
+        }
+    }, [user])
 
     useEffect(() => {
         if (starRef.current) {

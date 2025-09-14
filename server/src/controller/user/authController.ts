@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import IAuthController from "../../interface/controller/admin/authControllerInterface";
+import IAuthController from "../../interface/controller/user/authControllerInterface";
 import IAuthService from "../../interface/service/user/authSeriviceInterface";
 import HttpStatus from "../../utils/httpStatusCode";
 const accessTokenMaxAge = Number(process.env.ACCESS_TOKEN_MAX_AGE) || 6 * 60 * 60 * 1000;
