@@ -4,6 +4,7 @@ import { AuthService } from "../service/user/authService";
 import express from "express";
 import { ProfileService } from "../service/user/profileService";
 import { ProfileController } from "../controller/user/profileController";
+import protect from "../middleware/authMiddlwware";
 
 const userRepository = new UserRepository()
 const authService = new AuthService(userRepository)
@@ -20,7 +21,7 @@ router.post("/auth/login", authController.login)
 router.post("/auth/logout", authController.logout)
 router.post("/refresh", authController.refreshToken);
 
-router.get("/profile/:id", profileController.getProfile);
-router.patch("/profile/:id/password", profileController.changePassword);
+router.get("/profile/:id", protect, profileController.getProfile);
+router.patch("/profile/:id/password", protect, profileController.changePassword);
 
 export default router

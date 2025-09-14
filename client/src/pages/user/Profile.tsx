@@ -62,6 +62,14 @@ const Profile = () => {
       />
 
       <Navbar />
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-6 left-6 z-40 px-3 py-2 rounded-md bg-black text-white shadow-[0_0_6px_1px_rgba(34,197,94,0.3)] animate-glow transition cursor-pointer hover:shadow-[0_0_15px_3px_rgba(34,197,94,0.6)]"
+      >
+        ← Back
+      </button>
+
 
       {/* Circles */}
       <Circle
@@ -119,9 +127,9 @@ const Profile = () => {
               className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
               Change Password
             </button>
-            <button 
-            onClick={handleLogout}
-            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
+            <button
+              onClick={handleLogout}
+              className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
               Logout
             </button>
           </div>

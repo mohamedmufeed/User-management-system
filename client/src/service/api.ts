@@ -21,10 +21,11 @@ api.interceptors.response.use(
             originalRequest._retry = true
             try {
                 const response = await api.post("user/refresh")
+
                 console.log("Refresh response:", response)
-                const newAccessToken = response.data.accessToken;
-                api.defaults.headers.common["Authorization"] =
-                    `Bearer ${newAccessToken}`;
+                // const newAccessToken = response.data.accessToken;
+                // api.defaults.headers.common["Authorization"] =
+                //     `Bearer ${newAccessToken}`;
                 return api(originalRequest);
             } catch (Refresherror) {
                 console.error("Refresh token failed:", Refresherror);
