@@ -66,12 +66,7 @@ export class AuthController implements IAuthController {
 
     logout = async (req: Request, res: Response): Promise<void> => {
         try {
-            const userId = req.params.id;
-            if (!userId) {
-                res.status(HttpStatus.NOT_FOUND).json({ message: "User ID is required" });
-                return;
-            }
-
+          
             res.cookie("access_token", " ", {
                 httpOnly: true,
                 secure: false,

@@ -28,9 +28,8 @@ const LoginFrom = () => {
             dispatch(login(response.user))
             navigate("/")
         } catch (error) {
-            console.log("the error", error)
             if (error instanceof Error) {
-                setError(error.message)
+                console.error(error)
             } else {
                 setError("Invalid username and password")
             }

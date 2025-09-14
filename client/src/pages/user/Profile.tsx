@@ -1,20 +1,24 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Stars from "../../assets/DOTS 1.png";
 import BlurBox from "../../components/user/ui/BlurBox";
 import Circle from "../../components/user/ui/Circle";
 import Navbar from "../../components/user/ui/Navbar";
-import type { RootState } from "../../redux/store/store";
+import type { AppDispatch, RootState } from "../../redux/store/store";
 import { getProfile } from "../../service/user/profileService";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { IUser } from "../../types/userTypes";
 import ForgotPassword from "../../components/user/ForgotPassword";
+import { logout as logoutApi } from "../../service/user/authService";
+import { logout } from "../../redux/features/authSlice";
+
 
 const Profile = () => {
   const [profile, setProfile] = useState<IUser | null>(null)
   const userId = useSelector((state: RootState) => state.auth._id)
   const [isModlaOpen, setIsModalIsOpen] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     if (!userId) {
       navigate("/login")
@@ -33,6 +37,18 @@ const Profile = () => {
 
   }, [userId])
 
+  const handleLogout = async () => {
+    try {
+      const response = await logoutApi()
+      if (!response.success) {
+        console.error(response.message)
+      }
+      dispatch(logout())
+      navigate("/")
+    } catch (error) {
+      console.error("Error on Logout", error)
+    }
+  }
 
   const initials = profile
     ? `${profile.firstName?.[0]?.toUpperCase() ?? ""}${profile.lastName?.[0]?.toUpperCase() ?? ""}`
@@ -103,7 +119,9 @@ const Profile = () => {
               className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
               Change Password
             </button>
-            <button className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
+            <button 
+            onClick={handleLogout}
+            className="w-full py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-lg">
               Logout
             </button>
           </div>

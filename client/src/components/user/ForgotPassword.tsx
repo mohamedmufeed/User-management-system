@@ -42,9 +42,9 @@ const ForgotPassword: React.FC<Props> = ({ setIsModalIsOpen }) => {
             }, 2000);
 
         } catch (error) {
-            console.error("the error", error)
+          
             if (error instanceof Error) {
-                setError(error.message)
+                console.error(error.message)
             } else {
                 setError("Invalid password")
             }

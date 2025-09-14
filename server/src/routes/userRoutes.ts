@@ -17,7 +17,7 @@ const router = express.Router()
 
 router.post("/auth/signup", authController.register)
 router.post("/auth/login", authController.login)
-router.post("/auth/logout/:id", authController.logout)
+router.post("/auth/logout", authController.logout)
 router.post("/refresh", authController.refreshToken);
 
 router.get("/profile/:id", profileController.getProfile);

@@ -30,9 +30,8 @@ const SignupFrom = () => {
             dispatch(login(response.user))
             navigate("/")
         } catch (error) {
-            console.log("the erro", error)
             if (error instanceof Error) {
-                setError(error.message)
+              console.error(error.message)
             } else {
                 setError("Invalid username and password")
             }
