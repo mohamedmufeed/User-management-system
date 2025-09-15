@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.12.1",
     "gsap": "^3.13.0",
+    "lodash": "^4.17.21",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/lodash": "^4.17.20",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/redux-persist": "^4.0.0",

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes";
+import adminRoutes from "./routes/adminRoutes"
 import { connectDb } from "./config/db";
 dotenv.config()
 connectDb()
@@ -17,6 +18,7 @@ app.use(
         credentials: true,
     })
 );
+app.use("/api/admin", adminRoutes);
 app.use("/api/user",userRoutes)
 const PORT = process.env.PORTNUMBER || 3000;
 app.listen(PORT, () => {

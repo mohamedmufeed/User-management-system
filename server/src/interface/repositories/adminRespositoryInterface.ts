@@ -1,0 +1,10 @@
+import { HydratedDocument } from "mongoose";
+import { IUser } from "../../types/userTypes";
+import { GetPaginationQuery } from "../../types/adminTypes";
+
+export default interface IAdminRepository {
+    create(data: Partial<IUser>): Promise<HydratedDocument<IUser>>;
+    findById(id: string): Promise<HydratedDocument<IUser> | null>;
+    findAllActiveUsers({ page, limit, searchQuery }: GetPaginationQuery): Promise<{users:IUser[],totalUsers: number;totalPages: number;}>;
+
+}
