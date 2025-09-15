@@ -46,3 +46,18 @@ export const editUser = async (id: string, updateData: Partial<IUser>) => {
         }
     }
 }
+
+export const toggleBlockUser = async (id: string) => {
+    try {
+        const response = await api.patch(`admin/user/${id}/block`)
+        return response.data
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Error on  edit user:", error.response?.data);
+            return {
+                success: false,
+                message: error.response?.data?.message || "Something went wrong",
+            };
+        }
+    }
+}

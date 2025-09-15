@@ -32,4 +32,11 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
         const totalPages = Math.ceil(totalUsers / limit)
         return { users, totalUsers, totalPages }
     }
+
+
+    async findBIdAndUpdateBlockStatus(id:string,status:boolean){
+        return super.update(id,{isBlocked:status})
+    }
+
+
 }

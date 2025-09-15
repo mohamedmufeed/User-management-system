@@ -38,5 +38,17 @@ export class DashboardService implements IDashboardService {
         return toUserDto(updatedUser)
     }
 
+    toggleBlockUser = async (id: string): Promise<IUserDTO> => {
+        const user = await this._adminRepository.findById(id)
+        if (!user) {
+            throw { status: HttpStatus.NOT_FOUND, message: "User not found" }
+        }
+        const updatedUser = await this._adminRepository.findBIdAndUpdateBlockStatus(id, !user.isBlocked)
+        if (!updatedUser) {
+            throw { status: HttpStatus.INTERNAL_SERVER_ERROR, message: "Failed to update user block status" };
+        }
+        return toUserDto(updatedUser)
+    }
+
 
 }

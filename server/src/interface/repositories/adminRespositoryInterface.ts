@@ -7,4 +7,5 @@ export default interface IAdminRepository {
     findById(id: string): Promise<HydratedDocument<IUser> | null>;
     findAllActiveUsers({ page, limit, searchQuery }: GetPaginationQuery): Promise<{ users: IUser[], totalUsers: number; totalPages: number; }>;
     findByIdAndUpdate(id: string, updateData: Partial<IUser>):Promise<HydratedDocument<IUser> | null>
+    findBIdAndUpdateBlockStatus(id:string,status:boolean):Promise<HydratedDocument<IUser> | null>
 }

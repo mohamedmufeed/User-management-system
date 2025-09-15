@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import Stars from "../../assets/DOTS 1.png";
 import EditUserModal from "../../components/admin/EditUserModal";
@@ -8,12 +7,14 @@ import _ from "lodash"
 import { getUsers } from "../../service/admin/dashboardService";
 import type { IUser } from "../../types/userTypes";
 import { useLocation } from "react-router-dom";
+import ConfirmationModal from "../../components/admin/ConfirmationModal";
 
 const Dashboard = () => {
     const location = useLocation();
     const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false)
     const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false)
     const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+    const [isOpenConfirmationModal, setIsOpenConfirmationModal] = useState(false)
     const prevRequestRef = useRef<AbortController | null>(null)
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +25,7 @@ const Dashboard = () => {
     const userPerPage = 5;
     const [selectedUser, setSelectedUser] = useState<Partial<IUser> | null>(null);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
-
+    const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null)
 
     const fetchUsers = async (page: number, query = "") => {
         if (prevRequestRef.current) {
@@ -52,13 +52,11 @@ const Dashboard = () => {
         }
     }
 
-
     const debouncedFetch = useCallback(
         _.debounce((page: number, query: string) => {
             fetchUsers(page, query)
         }, 300)
         , [fetchUsers])
-
 
     useEffect(() => {
         if (searchQuery) {
@@ -67,7 +65,6 @@ const Dashboard = () => {
             fetchUsers(currentPage, searchQuery)
         }
     }, [currentPage, location])
-
 
     const handleSearch = (query: string) => {
         setSearchQuery(query)
@@ -88,6 +85,13 @@ const Dashboard = () => {
         setSelectedUserId(userId);
         setIsEditUserModalOpen(true);
     };
+
+    const handleBlockClick = (userId: string | undefined, status: boolean | undefined) => {
+        if (!userId) return
+        setIsOpenConfirmationModal(true)
+        setSelectedUserId(userId)
+        setSelectedStatus(status ?? false)
+    }
 
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen w-full relative overflow-hidden">
@@ -132,6 +136,7 @@ const Dashboard = () => {
                         {isAddUserModalOpen && <AddUserModal setIsModalIsOpen={setIsAddUserModalOpen} />}
                         {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} selectedUserId={selectedUserId!} setUsers={setUsers} />}
                         {isViewModalOpen && <ViewDetailsCard setIsModalIsOpen={setIsViewModalOpen} selectedUser={selectedUser} />}
+                        {isOpenConfirmationModal && <ConfirmationModal setIsModalIsOpen={setIsOpenConfirmationModal} selectedStatus={selectedStatus!} selectedUserId={selectedUserId!} setUsers={setUsers}/>}
                     </div>
 
                     {/* Table */}
@@ -172,8 +177,10 @@ const Dashboard = () => {
                                                 >
                                                     Edit
                                                 </button>
-                                                <button className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md">
-                                                    Block
+                                                <button
+                                                    onClick={() => handleBlockClick(user._id, user.isBlocked)}
+                                                    className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md">
+                                                     {user.isBlocked ? "Unblock" :"Block"}
                                                 </button>
                                             </td>
                                         </tr>
