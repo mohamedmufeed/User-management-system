@@ -7,13 +7,14 @@ import type { AppDispatch } from "../../redux/store/store"
 import { login as loginapi } from "../../service/user/authService"
 import { login } from "../../redux/features/authSlice"
 import { useNavigate } from "react-router-dom"
-
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginFrom = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string>()
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
+    const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema)
     })
@@ -80,19 +81,29 @@ const LoginFrom = () => {
                     )}
                 </div>
             </div>
-
-            <div className="flex flex-col">
+            {/* password */}
+            <div className="flex flex-col relative">
                 <input
                     {...register("password")}
-                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent 
-                focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
-                    type="password"
+                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent  focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400 pr-10"
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Password"
                 />
+
+                {/* Toggle Button */}
+                <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white" >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+
                 {errors.password && (
                     <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
                 )}
             </div>
+
+
             <button
                 type="submit"
                 disabled={loading}

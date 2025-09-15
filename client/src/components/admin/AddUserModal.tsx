@@ -5,15 +5,18 @@ import { type AddUserFromData, addUserSchema } from "../../validation/zod"
 import { addUser } from "../../service/admin/dashboardService"
 import { useState } from "react"
 import type { IUser } from "../../types/userTypes"
+import { Eye, EyeOff } from "lucide-react"
 
 interface Props {
   setIsModalIsOpen: (value: boolean) => void
-    setUsers: React.Dispatch<React.SetStateAction<Partial<IUser>[]>>
+  setUsers: React.Dispatch<React.SetStateAction<Partial<IUser>[]>>
 }
 
-const AddUserModal: React.FC<Props> = ({ setIsModalIsOpen , setUsers }) => {
+const AddUserModal: React.FC<Props> = ({ setIsModalIsOpen, setUsers }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<AddUserFromData>({
     resolver: zodResolver(addUserSchema)
   })
@@ -26,7 +29,7 @@ const AddUserModal: React.FC<Props> = ({ setIsModalIsOpen , setUsers }) => {
         setError(response.message)
         return
       }
-     setUsers(prevUsers => [...prevUsers, response.user])
+      setUsers(prevUsers => [...prevUsers, response.user])
       setIsModalIsOpen(false)
     } catch (error) {
       console.error("Action failed", error)
@@ -115,28 +118,42 @@ const AddUserModal: React.FC<Props> = ({ setIsModalIsOpen , setUsers }) => {
         </div>
 
 
-        <div>
+        <div className="flex flex-col relative">
           <input
             {...register("password")}
-            className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent
-            focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
-            type="password"
+            className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent  focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400 pr-10"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
           />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white" >
+            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+
           {errors.password && (
             <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
           )}
         </div>
 
 
-        <div>
+        <div className="flex flex-col relative">
           <input
             {...register("confirmPassword")}
-            className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent
-            focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
-            type="password"
+            className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
           />
+
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white" >
+            {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+
           {errors.confirmPassword && (
             <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>
           )}

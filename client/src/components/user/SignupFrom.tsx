@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../../redux/store/store"
 import { login } from "../../redux/features/authSlice"
 import { useNavigate } from "react-router-dom"
+import { Eye, EyeOff } from "lucide-react"
 
 
 const SignupFrom = () => {
@@ -14,6 +15,8 @@ const SignupFrom = () => {
     const [error, setError] = useState<string>()
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema)
     })
@@ -31,7 +34,7 @@ const SignupFrom = () => {
             navigate("/")
         } catch (error) {
             if (error instanceof Error) {
-              console.error(error.message)
+                console.error(error.message)
             } else {
                 setError("Invalid username and password")
             }
@@ -52,7 +55,7 @@ const SignupFrom = () => {
                 <p className="text-red-500 text-xs text-center font-medium">{error}</p>
             )}
 
-        
+
             <div className="flex gap-3">
                 <div className="flex flex-col w-1/2">
                     <input
@@ -110,28 +113,42 @@ const SignupFrom = () => {
                 </div>
             </div>
 
-        
-            <div className="flex flex-col">
+
+            <div className="flex flex-col relative">
                 <input
                     {...register("password")}
-                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent 
-                focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
-                    type="password"
+                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent  focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400 pr-10"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                 />
+
+           
+                <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white" >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+
                 {errors.password && (
                     <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
                 )}
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col relative">
                 <input
                     {...register("confirmPassword")}
-                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent 
-                focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
-                    type="password"
+                    className="w-full px-4 py-2 rounded-md border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#28865d] placeholder-gray-400"
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirm Password"
                 />
+
+                <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white" >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
                 {errors.confirmPassword && (
                     <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>
                 )}
