@@ -46,7 +46,6 @@ client/
 │ ├── utils/ # Utility functions
 │ └── main.tsx # Entry point
 
-
 ### Backend (server/)
 
 server/
@@ -63,7 +62,6 @@ server/
 │ ├── utils/ # Utility functions
 │ └── server.ts # App entry point
 
-
 ---
 
 ## Installation & Setup
@@ -76,17 +74,17 @@ cd User-management-system
 
 #### 2. Install dependencies 
 
-## Frontend
-
+**Frontend**
 cd client
 npm install
 
-## Backend
+**Backend**
 cd server
 npm install
 
 #### 3. Setup environment variables
-## Create a .env file inside server/:
+
+Create a `.env` file inside `server/`:
 
 PORTNUMBER=3000
 FRONT_END_URL="https://user-management-system-kappa-eight.vercel.app"
@@ -99,21 +97,17 @@ REFRESH_JWT_SECRET="your_refresh_token_secret"
 ACCESS_TOKEN_MAX_AGE=900000        # 15 minutes
 REFRESH_TOKEN_MAX_AGE=604800000    # 7 days
 
-
 #### Running the Project
 
-## Backend
-
+**Backend**
 cd server
 npm run dev
 
-
-## Frontend
-
+**Frontend**
 cd client
 npm run dev
 
-## Open in browser: http://localhost:5173
+Open in browser: http://localhost:5173
 
 #### Hosted Links
 
@@ -121,8 +115,4 @@ Frontend (Vercel): https://user-management-system-kappa-eight.vercel.app
 
 ### License
 
-## This project is licensed under the MIT License.
-
----
-
-Do you want me to also include a **sample API documentation section** (like available endpoints with request/response examples), or keep the README short?
+This project is licensed under the MIT License.
