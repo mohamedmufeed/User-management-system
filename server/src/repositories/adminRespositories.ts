@@ -1,3 +1,4 @@
+import { HydratedDocument } from "mongoose";
 import IAdminRepository from "../interface/repositories/adminRespositoryInterface";
 import User from "../model/user";
 import { GetPaginationQuery, GetPaginationResponse } from "../types/adminTypes";
@@ -13,8 +14,8 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
     async findById(id: string) {
         return super.findById(id)
     }
-    async findByIdAndUpdate(id:string,updateData:Partial<IUser>){
-        return super.update(id,updateData)
+    async findByIdAndUpdate(id: string, updateData: Partial<IUser>) {
+        return super.update(id, updateData)
     }
 
     async findAllActiveUsers({ page, limit, searchQuery }: GetPaginationQuery) {
@@ -34,8 +35,11 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
     }
 
 
-    async findBIdAndUpdateBlockStatus(id:string,status:boolean){
-        return super.update(id,{isBlocked:status})
+    async findBIdAndUpdateBlockStatus(id: string, status: boolean) {
+        return super.update(id, { isBlocked: status })
+    }
+    async findByPhone(phone: string): Promise<HydratedDocument<IUser> | null> {
+        return this.model.findOne({ phone });
     }
 
 

@@ -12,9 +12,12 @@ const dashboardController = new DashboardController(dashboardService)
 const router = express.Router()
 
 router.get("/users", protect, adminOnly, dashboardController.getAllUsers)
+      .post("/users" ,dashboardController.addUser)
+
 router.get("/user/:id", protect,adminOnly, dashboardController.fetchUser)
 router.patch("/user/:id/edit",protect,adminOnly, dashboardController.editUser)
-router.patch("/user/:id/block",dashboardController.toggleBlockUser)
+router.patch("/user/:id/block",protect,adminOnly,dashboardController.toggleBlockUser)
+
 
 
 export default router

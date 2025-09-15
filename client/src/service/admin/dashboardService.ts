@@ -61,3 +61,18 @@ export const toggleBlockUser = async (id: string) => {
         }
     }
 }
+
+export const addUser = async (data: Partial<IUser>) => {
+    try {
+        const response = await api.post("admin/users", data)
+        return response.data
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Error on  add user:", error.response?.data);
+            return {
+                success: false,
+                message: error.response?.data?.message || "Something went wrong",
+            };
+        }
+    }
+}

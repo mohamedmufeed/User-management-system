@@ -69,13 +69,28 @@ export class DashboardController implements IDashboardController {
     toggleBlockUser = async (req: Request, res: Response): Promise<void> => {
         try {
             const userId = req.params.id
-    
+
             if (!userId) {
                 res.status(HttpStatus.BAD_REQUEST).json({ message: "User id is required" });
                 return
             }
             const updatedUser = await this._dashboardSerice.toggleBlockUser(userId)
             res.status(HttpStatus.OK).json({ user: updatedUser, success: true, message: "User Block status updated successfully" })
+        } catch (error) {
+            const err = error as Error
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: err?.message || "Internal server error" });
+        }
+    }
+
+    addUser = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { firstName, lastName, phone, password } = req.body
+            if (!firstName || !lastName || !phone || !password) {
+                res.status(HttpStatus.BAD_REQUEST).json({ message: "All fields are required" })
+                return
+            }
+            const user = await this._dashboardSerice.addUser(firstName, lastName, phone, password)
+            res.status(HttpStatus.OK).json({ user, success: true, message: "New user created successfully" })
         } catch (error) {
             const err = error as Error
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: err?.message || "Internal server error" });

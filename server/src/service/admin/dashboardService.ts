@@ -1,9 +1,10 @@
 import IAdminRepository from "../../interface/repositories/adminRespositoryInterface";
 import IDashboardService from "../../interface/service/admin/dashboardServiceInterface";
 import { GetPaginationQuery, GetPaginationResponse } from "../../types/adminTypes";
-import { IUserDTO } from "../../types/userTypes";
+import { IUser, IUserDTO } from "../../types/userTypes";
 import { toUserDto } from "../../utils/dto/userDto";
 import HttpStatus from "../../utils/httpStatusCode";
+import bcrypt from "bcrypt";
 
 export class DashboardService implements IDashboardService {
     constructor(private _adminRepository: IAdminRepository) { }
@@ -50,5 +51,14 @@ export class DashboardService implements IDashboardService {
         return toUserDto(updatedUser)
     }
 
+    addUser = async (firstName: string, lastName: string, phone: string, password: string): Promise<IUserDTO> => {
+        const existUser = await this._adminRepository.findByPhone(phone);
+        if (existUser) {
+            throw { status: HttpStatus.BAD_REQUEST, message: "User already exists" };
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await this._adminRepository.create({ firstName, lastName, phone, password: hashedPassword });
+        return toUserDto(newUser)
+    }
 
 }
