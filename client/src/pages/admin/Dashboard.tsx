@@ -6,8 +6,12 @@ import ViewDetailsCard from "../../components/admin/ViewDetailsCard";
 import _ from "lodash"
 import { getUsers } from "../../service/admin/dashboardService";
 import type { IUser } from "../../types/userTypes";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ConfirmationModal from "../../components/admin/ConfirmationModal";
+import { logout } from "../../redux/features/authSlice";
+import { logout as logoutApi } from "../../service/user/authService";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store/store";
 
 const Dashboard = () => {
     const location = useLocation();
@@ -26,6 +30,9 @@ const Dashboard = () => {
     const [selectedUser, setSelectedUser] = useState<Partial<IUser> | null>(null);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null)
+    const dispatch=useDispatch<AppDispatch>()
+    const navigate=useNavigate()
+
 
     const fetchUsers = async (page: number, query = "") => {
         if (prevRequestRef.current) {
@@ -93,6 +100,19 @@ const Dashboard = () => {
         setSelectedStatus(status ?? false)
     }
 
+     const handleLogout = async () => {
+    try {
+      const response = await logoutApi()
+      if (!response.success) {
+        console.error(response.message)
+      }
+      dispatch(logout())
+      navigate("/")
+    } catch (error) {
+      console.error("Error on Logout", error)
+    }
+  }
+
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen w-full relative overflow-hidden">
             {/* Background */}
@@ -125,7 +145,9 @@ const Dashboard = () => {
                                 Add User
                             </button>
 
-                            <button className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 transition shadow-md text-sm sm:text-base">
+                            <button 
+                            onClick={handleLogout}
+                            className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 transition shadow-md text-sm sm:text-base">
                                 Logout
                             </button>
                         </div>
