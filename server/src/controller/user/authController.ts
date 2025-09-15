@@ -21,13 +21,13 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", token, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User created successfully" })
@@ -48,13 +48,13 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", token, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User Login successfully" })
@@ -70,14 +70,14 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", " ", {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 expires: new Date(0),
             });
 
             res.cookie("refresh_token", " ", {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 expires: new Date(0),
             });
 
@@ -100,7 +100,7 @@ export class AuthController implements IAuthController {
             res.cookie("access_token", newToken, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge: accessTokenMaxAge,
             });
 

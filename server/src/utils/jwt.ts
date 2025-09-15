@@ -1,11 +1,17 @@
-import jwt from "jsonwebtoken"
-const generateToken = (id: string, isAdmin: boolean) => {
-  return jwt.sign({ id, isAdmin }, process.env.JWT_SECRET!, { expiresIn: "15m" });
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET!;
+const REFRESH_SECRET = process.env.REFRESH_JWT_SECRET!;
+
+export const generateToken = (id: string, isAdmin: boolean) => {
+  return jwt.sign({ id, isAdmin }, JWT_SECRET, { expiresIn: "15m" }); 
 };
 
-const generateRefreshToken = (id: string, isAdmin: boolean) => {
-  return jwt.sign({ id, isAdmin }, process.env.REFRESH_JWT_SECRET!, { expiresIn: "7d" });
+export const generateRefreshToken = (id: string, isAdmin: boolean) => {
+  return jwt.sign({ id, isAdmin }, REFRESH_SECRET, { expiresIn: "7d" }); 
 };
 
-
-export { generateToken, generateRefreshToken }
+export const verifyRefreshToken = (token: string) => {
+  return jwt.verify(token, REFRESH_SECRET) as { id: string; isAdmin: boolean };
+};

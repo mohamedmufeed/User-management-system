@@ -36,3 +36,13 @@ export const forgotPasswordSchema = z
     message: "New password must be different from old password",
   });
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+
+
+export const editUserSchema = z
+  .object({
+    firstName: z.string().min(2, "Enter at least 2 letters"),
+    lastName: z.string().min(2, "Enter at least 2 letters"),
+    countryCode: z.string().min(1, "Code required"),
+    phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
+  })
