@@ -2,7 +2,7 @@ import axios from "axios";
 
 const isProduction = window.location.hostname !== "localhost";
 const api = axios.create({
-    baseURL: isProduction ? "" : "http://localhost:3000/api/",
+    baseURL: isProduction ? import.meta.env.VITE_API_URL : "http://localhost:3000/api/",
     withCredentials: true, 
 });
 
