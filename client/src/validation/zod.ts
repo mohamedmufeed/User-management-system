@@ -46,3 +46,4 @@ export const editUserSchema = z
     countryCode: z.string().min(1, "Code required"),
     phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
   })
+export type EditUserFormData = z.infer<typeof editUserSchema>

@@ -130,7 +130,7 @@ const Dashboard = () => {
                     {/* Modals */}
                     <div>
                         {isAddUserModalOpen && <AddUserModal setIsModalIsOpen={setIsAddUserModalOpen} />}
-                        {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} selectedUserId={selectedUserId!} />}
+                        {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} selectedUserId={selectedUserId!} setUsers={setUsers} />}
                         {isViewModalOpen && <ViewDetailsCard setIsModalIsOpen={setIsViewModalOpen} selectedUser={selectedUser} />}
                     </div>
 

@@ -4,7 +4,7 @@ import HttpStatus from "../utils/httpStatusCode";
 
 const adminOnly = async (req: Request, res: Response, next: NextFunction) => {
     const authReq = req as AuthenticatedRequest;
-    if (authReq.user?.isAdmin) {
+    if (!authReq.user?.isAdmin) {
         res.status(HttpStatus.FORBIDDEN).json({ success: false, message: "Access denied. Admin privileges required" })
         return
     }

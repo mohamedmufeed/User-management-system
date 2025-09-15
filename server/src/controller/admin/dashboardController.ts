@@ -37,7 +37,7 @@ export class DashboardController implements IDashboardController {
                 return
             }
             const user = await this._dashboardSerice.fetchUser(userId)
-            res.status(HttpStatus.OK).json({ user: user, message: "User fetched successfully" })
+            res.status(HttpStatus.OK).json({ user: user, success: true, message: "User fetched successfully" })
         } catch (error) {
             const err = error as Error
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: err?.message || "Internal server error" });
