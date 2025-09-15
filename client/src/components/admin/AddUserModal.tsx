@@ -24,6 +24,7 @@ const AddUserModal: React.FC<Props> = ({ setIsModalIsOpen , setUsers }) => {
       const response = await addUser(updateData)
       if (!response.success) {
         setError(response.message)
+        return
       }
      setUsers(prevUsers => [...prevUsers, response.user])
       setIsModalIsOpen(false)

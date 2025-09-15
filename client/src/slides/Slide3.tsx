@@ -49,7 +49,7 @@ const Slide3 = () => {
                 </div>
 
                 {/* Right  Texts */}
-                <div className="flex flex-col justify-start items-start md:w-1/2 gap-3 sm:gap-15">
+                <div className="flex flex-col justify-start items-start md:w-1/2 gap-4 sm:gap-15 px-5 sm:px-0">
                     <SlideText
                         initial={{ x: -100, y: -100 }}
                         animateTo={{ x: 0, y: 0}}

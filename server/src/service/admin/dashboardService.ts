@@ -28,9 +28,16 @@ export class DashboardService implements IDashboardService {
     }
 
     editUser = async (id: string, updateData: Partial<IUserDTO>): Promise<IUserDTO> => {
+        const { phone } = updateData
         const user = await this._adminRepository.findById(id)
         if (!user) {
             throw { status: HttpStatus.NOT_FOUND, message: "User not found" }
+        }
+        if (phone) {
+            const existUser = await this._adminRepository.findByPhone(phone);
+            if (existUser) {
+                throw { status: HttpStatus.BAD_REQUEST, message: "User already exists" };
+            }
         }
         const updatedUser = await this._adminRepository.findByIdAndUpdate(id, updateData)
         if (!updatedUser) {
