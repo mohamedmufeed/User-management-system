@@ -13,8 +13,12 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
     async findById(id: string) {
         return super.findById(id)
     }
+    async findByIdAndUpdate(id:string,updateData:Partial<IUser>){
+        return super.update(id,updateData)
+    }
+
     async findAllActiveUsers({ page, limit, searchQuery }: GetPaginationQuery) {
-       const skip = (page - 1) * limit
+        const skip = (page - 1) * limit
         const searchFilter = searchQuery
             ? {
                 $or: [

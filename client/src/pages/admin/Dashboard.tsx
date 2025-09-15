@@ -23,6 +23,9 @@ const Dashboard = () => {
     const [users, setUsers] = useState<Partial<IUser>[]>([])
     const userPerPage = 5;
     const [selectedUser, setSelectedUser] = useState<Partial<IUser> | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+
 
     const fetchUsers = async (page: number, query = "") => {
         if (prevRequestRef.current) {
@@ -80,6 +83,12 @@ const Dashboard = () => {
         };
     }, []);
 
+    const handleEditClick = (userId: string | undefined) => {
+        if (!userId) return
+        setSelectedUserId(userId);
+        setIsEditUserModalOpen(true);
+    };
+
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen w-full relative overflow-hidden">
             {/* Background */}
@@ -121,8 +130,8 @@ const Dashboard = () => {
                     {/* Modals */}
                     <div>
                         {isAddUserModalOpen && <AddUserModal setIsModalIsOpen={setIsAddUserModalOpen} />}
-                        {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} />}
-                        {isViewModalOpen && <ViewDetailsCard setIsModalIsOpen={setIsViewModalOpen}  selectedUser={selectedUser}/>}
+                        {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} selectedUserId={selectedUserId!} />}
+                        {isViewModalOpen && <ViewDetailsCard setIsModalIsOpen={setIsViewModalOpen} selectedUser={selectedUser} />}
                     </div>
 
                     {/* Table */}
@@ -149,7 +158,7 @@ const Dashboard = () => {
                                             <td className="px-3 sm:px-6 py-3">{user.phone}</td>
                                             <td className="px-3 sm:px-6 py-3 flex flex-wrap justify-center gap-2 sm:gap-3">
                                                 <button
-                                                    onClick={() =>{ 
+                                                    onClick={() => {
                                                         setSelectedUser(user)
                                                         setIsViewModalOpen(true)
                                                     }}
@@ -158,7 +167,7 @@ const Dashboard = () => {
                                                     View
                                                 </button>
                                                 <button
-                                                    onClick={() => setIsEditUserModalOpen(true)}
+                                                    onClick={() => handleEditClick(user._id)}
                                                     className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg bg-gradient-to-r from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md text-white"
                                                 >
                                                     Edit

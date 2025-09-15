@@ -2,9 +2,11 @@ import type React from "react"
 
 interface Props {
   setIsModalIsOpen: (value: boolean) => void
+  selectedUserId:string
 }
 
-const EditUserModal: React.FC<Props> = ({ setIsModalIsOpen }) => {
+const EditUserModal: React.FC<Props> = ({ setIsModalIsOpen  , selectedUserId}) => {
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="bg-black/80 backdrop-blur-lg border border-green-700/30 rounded-2xl px-8 py-10 w-[95%] max-w-md space-y-6 shadow-xl relative">
