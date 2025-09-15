@@ -20,14 +20,14 @@ export class AuthController implements IAuthController {
 
             res.cookie("access_token", token, {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                secure: true,
+                sameSite: "none",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                secure: true,
+                sameSite: "none",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User created successfully" })
@@ -47,14 +47,14 @@ export class AuthController implements IAuthController {
 
             res.cookie("access_token", token, {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                 secure: true,
+                sameSite: "none",
                 maxAge: accessTokenMaxAge,
             });
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                 secure: true,
+                sameSite: "none",
                 maxAge: refreshTokenMaxAge,
             });
             res.status(HttpStatus.OK).json({ user, success: true, message: "User Login successfully" })
@@ -69,15 +69,15 @@ export class AuthController implements IAuthController {
 
             res.cookie("access_token", " ", {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                 secure: true,
+                sameSite: "none",
                 expires: new Date(0),
             });
 
             res.cookie("refresh_token", " ", {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                 secure: true,
+                sameSite: "none",
                 expires: new Date(0),
             });
 
@@ -99,8 +99,8 @@ export class AuthController implements IAuthController {
 
             res.cookie("access_token", newToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: "lax",
+                 secure: true,
+                sameSite: "none",
                 maxAge: accessTokenMaxAge,
             });
 
