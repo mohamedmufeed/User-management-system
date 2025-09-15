@@ -9,11 +9,13 @@ export class DashboardController implements IDashboardController {
     constructor(private _dashboardSerice: IDashboardService) { }
     getAllUsers = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { page = 1, limit = 10, q = "" } = req.query
+            const { page = 1, limit = 10, q = "",status } = req.query
             const query: GetPaginationQuery = {
                 page: Number(page),
                 limit: Number(limit),
-                searchQuery: String(q)
+                searchQuery: String(q),
+               status: status ? String(status) : undefined, 
+
             }
             const result = await this._dashboardSerice.getAllUsers(query)
             res.status(HttpStatus.OK).json({

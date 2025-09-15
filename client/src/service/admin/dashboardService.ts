@@ -2,9 +2,9 @@ import { AxiosError } from "axios";
 import api from "../api"
 import type { IUser } from "../../types/userTypes";
 
-export const getUsers = async (page = 1, limit = 5, searchQuery = "", signal?: AbortSignal) => {
+export const getUsers = async (page = 1, limit = 5, searchQuery = "", signal?: AbortSignal,   status?: string) => {
     try {
-        const response = await api.get("admin/users", { params: { page, limit, q: searchQuery }, signal })
+        const response = await api.get("admin/users", { params: { page, limit, q: searchQuery , status }, signal })
         return response.data
     } catch (error) {
         if (error instanceof AxiosError) {

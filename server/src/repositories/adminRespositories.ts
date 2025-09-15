@@ -18,9 +18,9 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
         return super.update(id, updateData)
     }
 
-    async findAllActiveUsers({ page, limit, searchQuery }: GetPaginationQuery) {
+    async findAllUsers({ page, limit, searchQuery, status }: GetPaginationQuery) {
         const skip = (page - 1) * limit
-        const searchFilter = searchQuery
+        const searchFilter: any = searchQuery
             ? {
                 $or: [
                     { firstName: { $regex: searchQuery, $options: "i" } },
@@ -28,6 +28,9 @@ export class AdminRepository extends BaseRepository<IUser> implements IAdminRepo
                     { phone: { $regex: searchQuery, $options: "i" } },
                 ]
             } : {}
+
+        if (status === "blocked") searchFilter.isBlocked = true;
+        if (status === "active") searchFilter.isBlocked = false;
         const users = await this.model.find(searchFilter).skip(skip).limit(limit)
         const totalUsers = await this.model.countDocuments(searchFilter)
         const totalPages = Math.ceil(totalUsers / limit)

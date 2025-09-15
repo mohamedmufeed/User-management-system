@@ -24,17 +24,17 @@ const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
-    const [totalUsers, setTotalUsers] = useState(0);
+    const [__, setTotalUsers] = useState(0);
     const [users, setUsers] = useState<Partial<IUser>[]>([])
     const userPerPage = 5;
     const [selectedUser, setSelectedUser] = useState<Partial<IUser> | null>(null);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [selectedStatus, setSelectedStatus] = useState<boolean | null>(null)
-    const dispatch=useDispatch<AppDispatch>()
-    const navigate=useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate()
+    const [statusFilter, setStatusFilter] = useState<"all" | "blocked" | "active">("all");
 
-
-    const fetchUsers = async (page: number, query = "") => {
+    const fetchUsers = async (page: number, query = "", status?: string) => {
         if (prevRequestRef.current) {
             prevRequestRef.current.abort()
         }
@@ -42,7 +42,7 @@ const Dashboard = () => {
         prevRequestRef.current = abortController
         try {
             setLoading(true)
-            const response = await getUsers(page, userPerPage, query, abortController.signal)
+            const response = await getUsers(page, userPerPage, query, abortController.signal, status)
             if (prevRequestRef.current === abortController) {
                 setUsers(response.users)
                 setTotalPages(response.totalPages)
@@ -100,18 +100,18 @@ const Dashboard = () => {
         setSelectedStatus(status ?? false)
     }
 
-     const handleLogout = async () => {
-    try {
-      const response = await logoutApi()
-      if (!response.success) {
-        console.error(response.message)
-      }
-      dispatch(logout())
-      navigate("/")
-    } catch (error) {
-      console.error("Error on Logout", error)
+    const handleLogout = async () => {
+        try {
+            const response = await logoutApi()
+            if (!response.success) {
+                console.error(response.message)
+            }
+            dispatch(logout())
+            navigate("/")
+        } catch (error) {
+            console.error("Error on Logout", error)
+        }
     }
-  }
 
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen w-full relative overflow-hidden">
@@ -129,6 +129,23 @@ const Dashboard = () => {
 
                     {/* Controls */}
                     <div className="flex flex-col sm:flex-row justify-end sm:items-center gap-3 sm:gap-4 mb-6">
+                        
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => {
+                                    const value = e.target.value as "all" | "active" | "blocked";
+                                    setStatusFilter(value);
+                                    if (currentPage !== 1) setCurrentPage(1);
+                                    fetchUsers(1, searchQuery, e.target.value);
+                                }}
+                                className="px-3 sm:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-800  "
+                            >
+                                <option value="">All Users</option>
+                                <option value="active">Active</option>
+                                <option value="blocked">Blocked</option>
+                            </select>
+                    
+
                         <input
                             type="text"
                             value={searchQuery}
@@ -140,14 +157,14 @@ const Dashboard = () => {
                         <div className="flex gap-2 sm:gap-4 mt-2 sm:mt-0">
                             <button
                                 onClick={() => setIsAddUserModalOpen(true)}
-                                className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 transition shadow-md text-sm sm:text-base"
+                                className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md text-sm sm:text-base"
                             >
                                 Add User
                             </button>
 
-                            <button 
-                            onClick={handleLogout}
-                            className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 transition shadow-md text-sm sm:text-base">
+                            <button
+                                onClick={handleLogout}
+                                className="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md text-sm sm:text-base">
                                 Logout
                             </button>
                         </div>
@@ -158,7 +175,7 @@ const Dashboard = () => {
                         {isAddUserModalOpen && <AddUserModal setIsModalIsOpen={setIsAddUserModalOpen} setUsers={setUsers} />}
                         {isEditUserModalOpen && <EditUserModal setIsModalIsOpen={setIsEditUserModalOpen} selectedUserId={selectedUserId!} setUsers={setUsers} />}
                         {isViewModalOpen && <ViewDetailsCard setIsModalIsOpen={setIsViewModalOpen} selectedUser={selectedUser} />}
-                        {isOpenConfirmationModal && <ConfirmationModal setIsModalIsOpen={setIsOpenConfirmationModal} selectedStatus={selectedStatus!} selectedUserId={selectedUserId!} setUsers={setUsers}/>}
+                        {isOpenConfirmationModal && <ConfirmationModal setIsModalIsOpen={setIsOpenConfirmationModal} selectedStatus={selectedStatus!} selectedUserId={selectedUserId!} setUsers={setUsers} />}
                     </div>
 
                     {/* Table */}
@@ -202,7 +219,7 @@ const Dashboard = () => {
                                                 <button
                                                     onClick={() => handleBlockClick(user._id, user.isBlocked)}
                                                     className="px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md">
-                                                     {user.isBlocked ? "Unblock" :"Block"}
+                                                    {user.isBlocked ? "Unblock" : "Block"}
                                                 </button>
                                             </td>
                                         </tr>
@@ -230,7 +247,7 @@ const Dashboard = () => {
                             className={`px-3 sm:px-4 py-2 rounded-lg shadow-md transition
                       ${currentPage === 1
                                     ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                                    : "bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 text-white"
+                                    : "bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md"
                                 }`}
                         >
                             Prev
@@ -242,7 +259,7 @@ const Dashboard = () => {
                                 onClick={() => setCurrentPage(page)}
                                 className={`px-2 sm:px-3 py-1 rounded-lg transition shadow-md
                         ${currentPage === page
-                                        ? "bg-gradient-to-r from-green-700 to-green-900 text-white font-bold"
+                                        ? "bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md font-bold"
                                         : "bg-black/40 border border-green-900/40 text-gray-300 hover:bg-green-900/40"
                                     }`}
                             >
@@ -256,7 +273,7 @@ const Dashboard = () => {
                             className={`px-3 sm:px-4 py-2 rounded-lg shadow-md transition
                       ${currentPage === totalPages
                                     ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                                    : "bg-gradient-to-r from-green-800 to-green-900 hover:from-green-900 hover:to-green-950 text-white"
+                                    : "bg-gradient-to-r text-white from-[#28865d] to-[#0d2a1d] hover:from-[#28a16d] hover:to-[#1a1a1a] transition duration-300 shadow-md"
                                 }`}
                         >
                             Next

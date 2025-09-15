@@ -10,7 +10,7 @@ export class DashboardService implements IDashboardService {
     constructor(private _adminRepository: IAdminRepository) { }
 
     getAllUsers = async (query: GetPaginationQuery): Promise<GetPaginationResponse> => {
-        const response = await this._adminRepository.findAllActiveUsers(query)
+        const response = await this._adminRepository.findAllUsers(query)
         const mappedResponse = {
             totalUsers: response.totalUsers,
             totalPages: response.totalPages,
