@@ -90,7 +90,7 @@ const Slide2 = () => {
                             ref={imageRef}
                             src={GoPro}
                             alt="GoPro"
-                            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px]" />
+                            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px] z-20" />
 
                         <div className="flex justify-center ">
                             <button ref={buttonRef} className=" bg-[#0F2017] px-7 py-2 text-xs sm:text-base  rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70 ">
