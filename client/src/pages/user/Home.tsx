@@ -22,7 +22,7 @@ const Home = () => {
     useEffect(() => {
         if (user._id && user.isAdmin) {
             navigate("/admin-dashboard")
-        }else if( user.firstName){
+        } else if (user.firstName) {
             navigate("/")
         }
     }, [user])
@@ -40,41 +40,40 @@ const Home = () => {
 
     }, [activeSlide])
     return (
-        <div className="bg-[#0F0F0F] text-white h-screen w-full relative overflow-hidden">
+        <div className="bg-[#0F0F0F] text-white min-h-screen flex flex-col relative overflow-hidden">
 
-            {/* Stars Background */}
+            {/* Stars background */}
             <img
                 ref={starRef}
                 src={Stars}
                 alt="Stars Img"
-                className="absolute top-0 left-0 w-full h-full object-cover z-0 "
+                className="absolute top-0 left-0 w-full h-full object-cover z-0"
             />
 
             {/* Navbar */}
             <Navbar />
 
-            {/* Changing Section */}
-            <div >
+            {/* Slide Section */}
+            <div className="flex-1 flex flex-col justify-center items-center w-full">
                 <ActiveSlide />
             </div>
 
-
-            {/* Buttons */}
-            <div className="z-20 relative   grid grid-cols-4 sm:flex flex-col sm:flex-row justify-center p-5 sm:p-10 w-full rounded-lg ">
+            {/* Slide Buttons */}
+            <div className="z-20 relative w-full max-w-[1500px] mx-auto flex flex-wrap justify-center  p-4 sm:p-6">
                 {items.map((item, i) => (
                     <div
                         key={i}
                         onClick={() => setActiveSlide(i)}
                         className={`
-                            cursor-pointer
-                            flex-1 p-2  sm:p-5 text-center 
-                            bg-black text-gray-200 opacity-60
-                            ${i !== 3 ? "border-r-4 border-gray-800" : ""}
-                            ${activeSlide === i
+          cursor-pointer
+          flex-1 min-w-[120px] sm:min-w-[150px]
+          p-2 sm:p-4 text-center
+          ${i !== items.length - 1 ? "border-r-0 sm:border-r-2 border-gray-800" : ""}
+          ${activeSlide === i
                                 ? "bg-gray-400/55 text-white"
                                 : "bg-black text-gray-300 opacity-60 hover:opacity-100"
                             }
-                        `}
+        `}
                     >
                         <button className="text-xs sm:text-base">{item}</button>
                     </div>
@@ -82,6 +81,7 @@ const Home = () => {
             </div>
 
         </div>
+
     );
 };
 

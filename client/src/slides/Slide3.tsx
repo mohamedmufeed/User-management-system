@@ -35,24 +35,27 @@ const Slide3 = () => {
             />
 
             {/* Content */}
-            <div className="flex flex-col md:flex-row w-full justify-center items-center md:items-center gap-3 px-6 md:px-16 md:py-18 z-20 relative ">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 px-4 sm:px-6 z-20 relative w-full max-w-[1200px] mx-auto">
+
                 {/* Left Image & Button */}
-                <div ref={leftImageRef} className="flex flex-col justify-center items-center md:w-1/2 gap-5 sm:gap-6">
+               <div ref={leftImageRef} className="flex flex-col justify-center items-center md:w-1/2 gap-5 sm:gap-6">
+
                     <img
                         src={GoPro}
                         alt="GoPro"
-                        className="w-[250px] sm:w-[300px] md:w-[400px]"
-                    />
+                        className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px]" />
+
                     <button className="bg-[#0F2017] px-7 py-2 text-xs sm:text-base rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70">
                         Discover More Features
                     </button>
                 </div>
 
                 {/* Right  Texts */}
-                <div className="flex flex-col justify-start items-start md:w-1/2 gap-4 sm:gap-15 px-5 sm:px-0">
+               <div className="flex-1 flex flex-col justify-start items-start gap-4 px-4 sm:px-0">
+
                     <SlideText
                         initial={{ x: -100, y: -100 }}
-                        animateTo={{ x: 0, y: 0}}
+                        animateTo={{ x: 0, y: 0 }}
                         title="Waterproof & Rugged"
                         subtitle="Take your GoPro anywhere — rain, snow, surf, or dust, HERO12 can handle it all."
                     />

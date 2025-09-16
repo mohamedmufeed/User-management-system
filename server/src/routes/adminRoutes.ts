@@ -12,7 +12,7 @@ const dashboardController = new DashboardController(dashboardService)
 const router = express.Router()
 
 router.get("/users", protect, adminOnly, dashboardController.getAllUsers)
-      .post("/users" ,dashboardController.addUser)
+      .post("/users" ,protect,adminOnly,dashboardController.addUser)
 
 router.get("/user/:id", protect,adminOnly, dashboardController.fetchUser)
 router.patch("/user/:id/edit",protect,adminOnly, dashboardController.editUser)

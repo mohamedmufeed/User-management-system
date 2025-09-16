@@ -43,7 +43,7 @@ const Slide4 = () => {
             />
 
             {/* Content */}
-            <div className="flex flex-col justify-center items-center gap-15 sm:gap-39 text-center p-20">
+            <div className="flex flex-col justify-center items-center gap-15 sm:gap-39 text-center ">
 
 
                 <SlideText

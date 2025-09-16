@@ -20,7 +20,7 @@ const Slide1 = () => {
             <BlurBox className=" -top-20 left-1/2    md:left-1/6 "/>
             
             {/* Content */}
-            <div className="flex flex-col md:flex-row relative justify-center items-center z-20 p-3 md:p-24 py-0 md:py-26">
+            <div className="flex flex-col md:flex-row relative justify-center items-center z-20 p-3 md:p-24 py-0 md:py-2">
                 <div className="w-full md:w-4/6 flex flex-col justify-center items-center md:items-start space-y-2 md:space-y-10 text-center md:text-left">
                     <h1 className="font-semibold text-3xl sm:text-4xl md:text-7xl leading-snug md:leading-[5rem]">
                         Capture Every Moment <br /> with GoPro Hero

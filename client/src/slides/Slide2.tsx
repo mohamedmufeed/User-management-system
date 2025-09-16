@@ -50,7 +50,7 @@ const Slide2 = () => {
                 className="w-[14rem] h-[14rem] md:w-[20rem] md:h-[20rem] lg:w-[26rem] lg:h-[26rem]" />
 
             <Circle
-                initial={{top:"-10%" , right:"15%"}}
+                initial={{ top: "-10%", right: "15%" }}
                 animateTo={{ top: "1%", right: "-5%" }}
                 className=" w-[6rem] h-[6rem]  md:w-[10rem] md:h-[10rem]   lg:w-[14rem] lg:h-[14rem] "
             />
@@ -58,7 +58,7 @@ const Slide2 = () => {
             <BlurBox animateTo={{ top: "18%" }} className=" -top-20 left-1/2  md:left-1/6 " />
 
             {/* Content */}
-            <div className="flex flex-col md:flex-col relative justify-center items-center z-20 p-6 md:p-13.5 gap-2 sm:gap-0">
+            <div className="flex flex-col items-center justify-center z-20 gap-4 w-full max-w-[1200px] mx-auto px-4 sm:px-6">
 
                 <div ref={(el) => {
                     if (el) textRefs.current.push(el);
@@ -69,15 +69,14 @@ const Slide2 = () => {
                         className=" text-center max-w-md"
                     />
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-5  relative">
-
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
                     {/* Left Text */}
-                    <div ref={(el) => {
+                    <div className="flex-1 flex justify-center" ref={(el) => {
                         if (el) textRefs.current.push(el);
                     }}>
 
                         <SlideText
-                            className=" relative text-center max-w-sm md:-top-28"
+                                           className="relative text-center max-w-sm md:-top-20 z-20"
                             title="Shock-resistant design"
                             subtitle="Withstands drops, bumps, and rough handling"
                         />
@@ -85,8 +84,14 @@ const Slide2 = () => {
 
 
 
-                    <div className="flex flex-col justify-center items-center">
-                        <img ref={imageRef} src={GoPro} alt="GoPro" className="w-[250px]  sm:w-[300px] md:w-[400px] " />
+                    <div className="flex-1 flex flex-col items-center justify-center gap-4 min-w-[200px]">
+
+                        <img
+                            ref={imageRef}
+                            src={GoPro}
+                            alt="GoPro"
+                            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px]" />
+
                         <div className="flex justify-center ">
                             <button ref={buttonRef} className=" bg-[#0F2017] px-7 py-2 text-xs sm:text-base  rounded-full tracking-[0.15em] text-white shadow-[0_0_5px_1px_#3A9678] border border-[#3A9678]/70 ">
                                 Discover More Features
@@ -95,7 +100,7 @@ const Slide2 = () => {
                     </div>
 
                     {/* Right Text */}
-                    <div ref={(el) => {
+                    <div className="flex-1 flex justify-center max-w-[250px] md:max-w-[290px]" ref={(el) => {
                         if (el) textRefs.current.push(el);
                     }}>
 
